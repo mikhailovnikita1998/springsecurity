@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+<!-- Форма для создания пользователя -->
+<form action="#" th:action="@{/user-create}" th:object="${user}" method="post">
+    <label for="firstName">First name</label>
+    <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name">
+
+    <label for="lastName">Last name</label>
+    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
+
+    <label for="username">Username</label> <!-- Исправлено на username -->
+    <input type="text" th:field="*{username}" id="username" placeholder="Username">
+
+    <label for="password">Password</label>
+    <input type="password" th:field="*{password}" id="password" placeholder="Password">
+
+    <label>Roles:</label>
+    <!-- Использование чекбоксов для выбора ролей -->
+    <div th:each="role : ${allRoles}">
+        <input type="checkbox" th:id="${'role_' + role.id}" th:name="roles"
+               th:value="${role.id}" th:checked="${user.roles.contains(role)}">
+        <label th:for="${'role_' + role.id}" th:text="${role.name}"></label>
+    </div>
+
+    <input type="submit" value="Create User">
+</form>
+
+<h1>Welcome User!</h1>
+
+<!-- Форма для выхода пользователя -->
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout">
+</form>
+</body>
+</html>
